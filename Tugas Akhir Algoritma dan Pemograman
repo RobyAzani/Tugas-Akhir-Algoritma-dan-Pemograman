@@ -1,0 +1,131 @@
+// Nama : Roby Azani
+// Nim  : 12250513544
+
+#include <stdio.h>
+
+void ceksaldo(float dana) {
+    printf("Saldo Anda: Rp. %.2f\n", dana);
+    printf("Tekan 1 untuk kembali ke menu transaksi: ");
+    int back;
+    while (1) {
+        scanf("%d", &back);
+        if(back == 1){
+            return;
+        }else{
+        	printf("TEKAN 1 DULU!: ");
+        }
+    }
+}
+float transfer(float dana){
+    float transfer;
+    printf("Masukkan jumlah yg ingin di transfer: ");
+    scanf("%f", &transfer);
+    if(transfer <= dana){
+        dana -= transfer;
+        printf("Transfer berhasil\nSaldo Anda: Rp %.2f\n", dana);
+    }else{
+        printf("Maaf Saldo Anda Tidak Cukup!\n");
+    }
+    printf("Tekan 1 untuk kembali ke menu transaksi: ");
+    int back;
+    while(1){
+        scanf("%d", &back);
+        if (back == 1){
+            return dana;
+        }else{
+            printf("TEKAN 1 UNTUK KEMBALI KE MENU!: ");
+        }
+    }
+}
+float setor(float dana){
+    float setor;
+    printf("Masukkan jumlah yg ingin Anda setor: ");
+    scanf("%f", &setor);
+    dana += setor;
+    printf("Setor tunai Anda berhasil\nSaldo Anda: Rp %.2f\n", dana);
+    printf("Tekan 1 untuk kembali ke menu transaksi: ");
+    int back;
+    while(1){
+        scanf("%d", &back);
+        if (back == 1) {
+            return dana;
+        }else{
+            printf("TEKAN 1 UNTUK KEMBALI KE MENU!: ");
+        }
+    }
+}
+void transaksi(float *dana){
+    int kode;
+    do{
+    	printf("\n");
+    	printf("Hai *Roby* Silahkan Pilih Menu di Bawah!\n");
+        printf("1. Cek Saldo\n");
+        printf("2. Transfer\n");
+        printf("3. Setor Tunai\n");
+        printf("4. Keluar\n");
+        printf("Kode: ");
+        
+        while(scanf("%d", &kode) != 1 || kode < 1 || kode > 4) {
+        	printf("1. Cek Saldo\n");
+        	printf("2. Transfer\n");
+        	printf("3. Setor Tunai\n");
+        	printf("4. Keluar\n");
+            printf("Kode hanya 1,2,3,4!\n");
+            printf("Masukkan Kode: ");
+            while (getchar() != '\n');
+        }
+        switch (kode){
+            case 1:
+                ceksaldo(*dana);
+                break;
+            case 2:
+                *dana = transfer(*dana);
+                break;
+            case 3:
+                *dana = setor(*dana);
+                break;
+            case 4:
+                printf("\n");
+                printf("=====   TERIMA KASIH   =====\n");
+                printf("=====       ROBY       =====\n");
+                printf("############################\n");
+                break;
+            default:
+                printf("Kode tidak tersedia\n");
+        }
+    }while(kode != 4);
+}
+int main(){
+    int pass1 = 1213;
+    int pass2;
+    int count = 0;
+    float dana = 5000000;
+    printf("Panduan Tugas Akhir Algoritma dan Pemograman  \n");
+    printf("Nama : Roby Azani   \n");
+    printf("Nim  : 12250513544  \n");
+    printf("   \n");
+    printf("   =================================   \n");
+    printf("   ###      SELAMAT DATANG       ###   \n");
+    printf("                  di                   \n");
+    printf("   ###        BANK BYAZ          ###   \n");
+    printf("   =================================   \n");
+    printf("     \n");
+    printf("MASUKKAN PIN ANDA: ");
+    scanf("%i", &pass2);
+    if(pass2 == pass1){
+        transaksi(&dana);
+    }else{
+        while(count < 2){
+            printf("PIN Anda salah, Coba lagi!\n");
+            printf("PIN: ");
+            scanf("%i", &pass2);
+            if(pass2 == pass1){
+                transaksi(&dana);
+                return 0;
+            }
+            count++;
+        }
+        printf("ATM Anda Diblokir, Silahkan Hubungi Admin BYAZ Bank!\n");
+    }
+    return 0;
+}
